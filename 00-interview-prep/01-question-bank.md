@@ -61,7 +61,7 @@ mindmap
 - [Ensemble Methods Questions](#ensemble-methods-questions) (Q40-Q49)
 - [System Design Scenarios](#system-design-scenarios) (5 deep-dive walkthroughs)
 - [Advanced Questions (December 2025)](#advanced-questions-december-2025) (Q50-Q65)
-- [Advanced Questions - March 2026](#advanced-questions--march-2026) (Q66-Q80)
+- [Advanced Questions - March 2026](#advanced-questions---march-2026) (Q66-Q80)
 - [Advanced Questions - May 2026](#advanced-questions--may-2026) (Q81-Q110)
 - [Advanced Questions - June 2026](#advanced-questions--june-2026) (Q111-Q116) ⭐ *NEW*
 
