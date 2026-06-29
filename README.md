@@ -45,6 +45,7 @@ A practical, continuously updated guide to AI system design, RAG architectures, 
 | **Advanced retrieval** | [Contextual Retrieval](06-retrieval-systems/10-contextual-retrieval.md) → [ColBERT](06-retrieval-systems/11-late-interaction-colbert.md) → [Multi-modal RAG](06-retrieval-systems/12-multimodal-rag.md) |
 | **Design multi-tenant AI** | [Access Control](12-security-and-access/02-access-control.md) → [Case Study](16-case-studies/08-multi-tenant-saas.md) |
 | **Build agents** | [Agent Fundamentals](07-agentic-systems/01-agent-fundamentals.md) → [MCP & A2A](07-agentic-systems/03-tool-use-and-mcp.md) → [LangGraph](09-frameworks-and-tools/02-langgraph-orchestration.md) |
+| **Run self-driving agent loops** | [Loop Engineering](07-agentic-systems/12-loop-engineering.md) (the four loop levels, termination, budgets, verification, loopmaxxing) |
 | **Tool-use & computer agents** | [Landscape](17-tool-use-and-computer-agents/01-tool-use-landscape.md) → [OpenClaw](17-tool-use-and-computer-agents/03-openclaw-deep-dive.md) → [Safety](17-tool-use-and-computer-agents/07-safety-and-governance.md) |
 | **Autonomous coding agents** | [Claude Code](09-frameworks-and-tools/09-claude-code.md) → [OpenCoder Landscape](09-frameworks-and-tools/10-opencoderguide.md) |
 | **Survive framework version churn** | [Navigating Framework Churn](09-frameworks-and-tools/12-navigating-framework-churn.md) (stale tutorials, version pinning, what to actually learn) |
@@ -92,7 +93,7 @@ flowchart TD
 
 | This Guide | Printed Books |
 |------------|---------------|
-| June 2026 models (Claude Fable 5, Claude Opus 4.8, GPT-5.5, Gemini 3.1 Pro, DeepSeek V4 Pro, Llama 4, Kimi K2.6, Qwen 3.6, Mistral Medium 3.5, Gemma 4) | Stuck on GPT-4 |
+| June 2026 models (Claude Fable 5, Claude Opus 4.8, GPT-5.6, GPT-5.5, Gemini 3.1 Pro, DeepSeek V4 Pro, Llama 4, Kimi K2.7, Qwen 3.7, GLM-5.2, Mistral Medium 3.5, Gemma 4, DiffusionGemma) | Stuck on GPT-4 |
 | MCP 2.0, A2A v1.0, OpenClaw, Computer Use, Agentic RAG, ColBERT, latent reasoning, MoE serving | Does not exist |
 | Real pricing with June 2026 verification dates | Already wrong |
 | Staff-level interview Q&A (116 questions through June 2026) + Job Market Trends | Generic questions |
@@ -128,7 +129,7 @@ flowchart TD
 ├── 04-inference-optimization/   # KV cache, PagedAttention, vLLM, diffusion LLMs, on-device
 ├── 05-prompting-and-context/    # Prompt engineering, CoT, Extended Thinking, DSPy, prompt injection
 ├── 06-retrieval-systems/        # RAG, chunking, GraphRAG, Agentic RAG, ColBERT, Contextual Retrieval, data engineering
-├── 07-agentic-systems/          # MCP 2.0, A2A protocol, multi-agent, computer-use, durable execution
+├── 07-agentic-systems/          # MCP 2.0, A2A protocol, multi-agent, computer-use, durable execution, loop engineering
 ├── 08-memory-and-state/         # L1-L3 memory tiers, Mem0, caching
 ├── 09-frameworks-and-tools/     # LangGraph, DSPy, LlamaIndex, Claude Code, OpenCoder, framework churn
 ├── 10-document-processing/      # Vision-LLM OCR, multimodal parsing
