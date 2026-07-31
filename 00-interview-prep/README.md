@@ -1,8 +1,8 @@
 # AI System Design Interview Preparation
 
-Interview prep for senior and staff AI engineering roles: 116 system design questions, answer frameworks with a worked mock-interview transcript, common pitfalls, nine whiteboard exercises, behavioral prep, a quick-answer FAQ, and June 2026 hiring trends.
+Interview prep for senior and staff AI engineering roles: 122 system design questions, answer frameworks with a worked mock-interview transcript, common pitfalls, nine whiteboard exercises, behavioral prep, a quick-answer FAQ, and June 2026 hiring trends.
 
-> **What's new (June 2026):** the question bank gained a Tooling and Lifecycle section plus six June-2026 questions (Fable 5 tier routing, agentic context engineering, computer-use reliability, Agent Skills, eval gaming, cost-aware multi-provider routing) and now runs continuously Q1-Q116. The whiteboard set gained two exercises (evaluation pipeline design, agent memory and state). Frameworks gained a worked 45-minute SPIDER transcript. Behavioral gained two harder STAR-L examples, a compensation question set, and an out-loud practice guide.
+> **What's new (July 2026):** the question bank gained six July-2026 questions (the MCP stateless rewrite, provider-failure design for agents, coding-CLI telemetry trust boundaries, request-level model routing, eval sandbox containment, agent data injection) and now runs continuously Q1-Q122. Earlier in June it gained a Tooling and Lifecycle section plus six June-2026 questions. The whiteboard set gained two exercises (evaluation pipeline design, agent memory and state). Frameworks gained a worked 45-minute SPIDER transcript. Behavioral gained two harder STAR-L examples, a compensation question set, and an out-loud practice guide.
 
 ## Before You Start
 
@@ -37,7 +37,7 @@ mindmap
       Answer Frameworks
       Whiteboard exercises
     Staff or Principal
-      Advanced sets Q50 to Q116
+      Advanced sets Q50 to Q122
       Behavioral STAR-L
       Eval and memory exercises
     Applied Scientist
@@ -54,7 +54,7 @@ mindmap
 
 | File | Purpose |
 |------|---------|
-| [01-question-bank.md](01-question-bank.md) | 116 real interview questions (Q1-Q116, continuously numbered) grouped by topic, with model answers and follow-ups (through June 2026). |
+| [01-question-bank.md](01-question-bank.md) | 122 real interview questions (Q1-Q122, continuously numbered) grouped by topic, with model answers and follow-ups (through July 2026). |
 | [02-answer-frameworks.md](02-answer-frameworks.md) | Five structured answer frameworks (SPIDER, ETA, tradeoff, debugging, STAR-L) plus a worked 45-minute SPIDER mock-interview transcript. |
 | [03-common-pitfalls.md](03-common-pitfalls.md) | Patterns that kill staff-level offers: hand-waving on tradeoffs, missing observability, ignoring failure modes. |
 | [04-whiteboard-exercises.md](04-whiteboard-exercises.md) | Nine system design exercises with worked solutions, including evaluation pipeline design and agent memory. The closest simulation of a real loop. |
