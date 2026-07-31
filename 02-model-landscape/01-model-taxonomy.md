@@ -1,8 +1,10 @@
 # Model Taxonomy
 
-This chapter provides a comprehensive guide to the model landscape as of **June 2026**, covering model families, capabilities, and selection criteria for production systems.
+This chapter provides a comprehensive guide to the model landscape as of **July 2026**, covering model families, capabilities, and selection criteria for production systems.
 
-> **Last verified: June 28, 2026.** The model landscape evolves rapidly. Always cross-check with provider pricing pages and release notes.
+> **Last verified: July 31, 2026.** The model landscape evolves rapidly. Always cross-check with provider pricing pages and release notes.
+>
+> **July 2026 headline:** Anthropic shipped a full generation refresh: **Claude Sonnet 5** (June 30, `claude-sonnet-5`, new default everywhere, introductory $2/$10 per 1M through August 31 then $3/$15) and **Claude Opus 5** (July 24, `claude-opus-5`, unchanged $5/$25 with an optional Fast mode at $10/$50 about 2.5x faster). **Claude Fable 5 was restored globally July 1** after the export-control suspension, with a new jailbreak-specific cybersecurity classifier; Mythos 5 returned only to roughly 100 US critical-infrastructure organizations via Project Glasswing. **GPT-5.6 (Sol, Terra, Luna) reached general availability July 9**, and on July 30 OpenAI cut Luna 80% to $0.20/$1.20 and Terra 20% to $2/$12 (Sol stays $5/$30). The open-weight frontier had its strongest month ever: **Moonshot Kimi K3** (July 16, weights July 27) is the largest open-weight model to date at 2.8T total / 104B active with a 1M context, and **Thinking Machines Lab** debuted **Inkling** (July 15, 975B / 41B active, open weights), the leading US open-weights model. Google shipped **Gemini 3.6 Flash**, **3.5 Flash-Lite**, and a government-gated **3.5 Flash Cyber** (July 21) while delaying Gemini 3.5 Pro. **Meta Muse Spark 1.1** (July 9) arrived with Meta's first paid self-serve model API ($1.25/$4.25 per 1M). Black Forest Labs announced **FLUX 3** (July 23), a unified image, video, audio, and action model, in gated early access. Benchmark figures across these launches are largely vendor-reported; confirm on independent leaderboards.
 >
 > **June 2026 headline:** Anthropic released **Claude Fable 5** (June 9, `claude-fable-5`, $10/$50 per 1M, 1M context), its most capable widely released model: a Mythos-class model made safe for general availability, with an Opus 4.8 fallback safeguard on sensitive topics. **Claude Mythos 5** ships the same day as the unrestricted variant for Project Glasswing partners, succeeding Mythos Preview at less than half its price.
 >
@@ -49,6 +51,36 @@ This chapter provides a comprehensive guide to the model landscape as of **June 
 ---
 
 ## Frontier Models (June 2026)
+
+### Claude Opus 5 (Anthropic) - July 2026 NEW
+
+| Attribute | Value |
+|-----------|-------|
+| Model ID | `claude-opus-5` |
+| Context Window | 1M tokens (default and max; 128K max output) |
+| Input / Output Cost | $5.00 / $25.00 per 1M (unchanged from Opus 4.8) |
+| Fast mode | $10.00 / $50.00 per 1M, about 2.5x faster |
+| Benchmarks | Frontier-Bench v0.1 (Terminal-Bench successor): 43.3% at max effort vs GPT-5.6 Sol's 34.4%, Fable 5's 33.7%, and Opus 4.8's 18.7%. Within 0.5% of Fable 5 on CursorBench 3.2 at about half the cost per task; roughly 3x the next-best model on ARC-AGI 3. Vendor-reported. |
+| Released | July 24, 2026 (Claude API, Claude Code, Claude Cowork; new default on Claude Max) |
+
+**What it is:** The Opus line's generational successor at unchanged pricing, aimed at long-horizon agentic coding and computer use. Beta features include mid-conversation tool changes and automatic fallback routing. The dual-price Fast mode continues the pattern Opus 4.8 introduced: one model, two latency tiers.
+
+**Best for:** Agentic coding and computer-use workloads where Fable 5's ceiling is not needed; the price-performance flagship of the Claude line as of late July 2026.
+
+### Claude Sonnet 5 (Anthropic) - July 2026 NEW
+
+| Attribute | Value |
+|-----------|-------|
+| Model ID | `claude-sonnet-5` |
+| Context Window | 1M tokens per third-party coverage (not stated in the launch post) |
+| Input / Output Cost | Introductory $2.00 / $10.00 per 1M through August 31, 2026, then $3.00 / $15.00 |
+| Positioning | The most agentic Sonnet yet: planning, browser and terminal tool use, autonomous operation approaching Opus 4.8 at lower cost |
+| Safety posture | Cyber safeguards on by default; deliberately reduced cybersecurity capability relative to Opus-class models |
+| Released | June 30, 2026 (default model across consumer and developer products same day) |
+
+**What it is:** The new production workhorse, replacing Sonnet 4.6 as the default. The launch-window pricing is a dated fact: any cost model built on $2/$10 must revisit after August 31.
+
+**Best for:** Production agent fleets, coding at scale, and the default tier in cost-aware routing stacks.
 
 ### Claude Fable 5 (Anthropic) - June 2026 NEW
 
@@ -214,20 +246,23 @@ This chapter provides a comprehensive guide to the model landscape as of **June 
 **Best for:** Competition-level math, complex multi-step reasoning.
 **Considerations:** Very expensive; use standard GPT-5.4 or mini for volume.
 
-### GPT-5.6 Sol / Terra / Luna (OpenAI) - June 2026 NEW (limited preview)
+### GPT-5.6 Sol / Terra / Luna (OpenAI) - GA July 9, 2026
 
 | Attribute | Value |
 |-----------|-------|
 | Variants | Sol (flagship), Terra (balanced), Luna (fast, low cost) |
-| Status | Limited preview via API and Codex to a small group of US-government-approved partners; broad general availability planned "in the coming weeks" |
-| Pricing | Not fully public during the preview; Terra is pitched at GPT-5.5-level quality for about half the cost |
-| Reasoning | Adds a new "max" reasoning effort and an "ultra" mode that uses subagents to accelerate complex work |
-| Benchmarks | Sol sets a new Terminal-Bench 2.1 record and is OpenAI's strongest model for cybersecurity, reported to match Anthropic's Mythos Preview on ExploitBench at roughly one third the output tokens (vendor-reported) |
-| Released | June 26, 2026 |
+| Context Window | 1M tokens (all three); 128K max output; knowledge cutoff February 16, 2026 |
+| Sol pricing | $5.00 / $30.00 per 1M |
+| Terra pricing | $2.00 / $12.00 per 1M (cut 20% from $2.50/$15 on July 30) |
+| Luna pricing | $0.20 / $1.20 per 1M (cut 80% from $1/$6 on July 30) |
+| Reasoning | "max" reasoning effort plus an "ultra" mode that uses subagents to accelerate complex work |
+| API features at GA | Programmatic tool calling, multi-agent support, explicit prompt-cache breakpoints |
+| Benchmarks | Sol: 53.6 on Agents' Last Exam (13.1 points ahead of Claude Fable 5) and a Terminal-Bench 2.1 record. Claude Fable 5 still leads SWE-Bench Pro (80 vs Sol's 64.6), a benchmark OpenAI publicly disputes. Vendor-reported. |
+| Released | Limited preview June 26, 2026; general availability July 9, 2026 |
 
-**What it is:** OpenAI's next-generation flagship line. As with Anthropic's Fable 5 and Mythos 5 a few weeks earlier, the release is gated at the request of the US government over dual-use cybersecurity capability, which makes government-restricted frontier launches a notable June 2026 pattern. OpenAI has said it disagrees with the approval process as a long-term default.
+**What it is:** OpenAI's next-generation flagship line, shipped for the first time as three models. The June 26 preview was gated at the request of the US government over dual-use cybersecurity capability; GA followed a 13-day review. The three-tier structure plus the steep July 30 cuts (Luna at $0.20/$1.20 is priced against open-weight competition) reset the routing math for anyone doing tiered model selection.
 
-**Best for:** Frontier coding, cybersecurity research, and long-horizon agentic work once it is generally available. Until then treat it as preview and keep GPT-5.5 as the available production tier.
+**Best for:** Sol for frontier agentic work and cybersecurity-adjacent coding; Terra as the GPT-5.5-class production default at roughly half GPT-5.5's price; Luna for high-volume classification, extraction, and routing tiers.
 
 ### GPT-5.5 (OpenAI) - May 2026 NEW
 
@@ -415,6 +450,7 @@ While frontier models lead on benchmarks, many enterprise systems rely on **batt
 
 | Model | Parameters | Context | Notes |
 |-------|------------|---------|-------|
+| **Kimi K3** | 2.8T total / 104B active (MoE) | 1M | July 16, 2026 NEW (open weights July 27). Largest open-weight model to date. Always-on thinking, multimodal. $3 / $15 per 1M ($0.30 cached input). Artificial Analysis Intelligence Index 57.1, third overall at launch behind Fable 5 and GPT-5.6 Sol; first open model to top WebDev Arena. Moonshot's flagship, superseding K2.7 Code. |
 | **Kimi K2.6** | 1T total / 32B active (MoE) | - | Released April 20, 2026. Modified MIT license. Native video input; Agent Swarm scaling to 300 sub-agents and 4,000 coordinated steps. Ties GPT-5.5 on SWE-Bench Pro (58.6%); SWE-bench Verified ~80.2%. |
 | **Kimi K2.7 Code** | 1T total / 32B active (MoE) | 256K | June 12, 2026 NEW. Coding-focused build on K2.6 (Modified MIT) with a MoonViT vision encoder. Reports about +21.8% over K2.6 on Moonshot's own Kimi Code Bench v2 with roughly 30% fewer thinking tokens (vendor benchmark). API about $0.95 / $4.00 per 1M. |
 | Kimi K2-Thinking-0905 | - | - | First model to hit 100% on AIME 2025 (reasoning variant). |
@@ -461,6 +497,15 @@ While frontier models lead on benchmarks, many enterprise systems rely on **batt
 
 **Best for:** Open-weight agentic coding and long-horizon tool use where a 1M context and a permissive license matter. Verify benchmark claims on independent leaderboards.
 
+### Thinking Machines Inkling - July 2026 NEW
+
+| Model | Parameters | Context | License | Notes |
+|-------|------------|---------|---------|-------|
+| **Inkling** | 975B total / 41B active (MoE) | 1M (64K or 256K via the lab's Tinker API) | Open weights | Released July 15, 2026: Thinking Machines Lab's first public model, pretrained on 45T tokens of text, image, audio, and video. SWE-Bench Verified 77.6%; the leading US open-weights model per Artificial Analysis, with safety scores the lab reports as aligning with frontier models. NVFP4 checkpoint optimized for NVIDIA Blackwell. |
+| Inkling-Small (preview) | 276B total / 12B active | - | Open weights | Announced alongside Inkling for lower cost and latency. |
+
+**Why it matters:** A brand-new US lab shipping the leading American open-weights model, positioned explicitly as a fine-tuning foundation. Until July the open frontier was dominated by Chinese labs; Kimi K3 and Inkling landing in the same week is the strongest open-weights month on record.
+
 ### Meta Muse Spark (Closed Weights) - May 2026 STRATEGIC SHIFT
 
 | Attribute | Value |
@@ -470,6 +515,8 @@ While frontier models lead on benchmarks, many enterprise systems rely on **batt
 | Released | April 8, 2026 |
 
 **Strategic significance:** Meta's first non-open model since the original Llama era. Signals that frontier-quality work may require a closed-development feedback loop. Llama 4 Behemoth release was simultaneously paused through fall 2026 amid capability concerns. The open-vs-closed equilibrium is now two-tier: frontier closed lags 6–12 months ahead; open weights catch up via distillation, RL, and ecosystem iteration.
+
+**July 2026 update:** **Muse Spark 1.1** shipped July 9 alongside the public preview of the **Meta Model API**, Meta's first self-serve paid API: OpenAI-compatible, $1.25 / $4.25 per 1M, roughly a quarter of rival flagship rates. Vendor-reported benchmarks lead on scaled tool use (MCP Atlas 88.1) and professional tool use (JobBench 54.7). Meta charging for API access completes the pivot away from open-weight Llama; there is no Llama 5, and Behemoth remains shelved.
 
 ---
 
