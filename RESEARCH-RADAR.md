@@ -20,6 +20,7 @@ It is organized by theme, not by paper. Each theme leads with why it matters for
 - [10. Multimodal: World Models, VLAs, and Omni](#10-multimodal-world-models-vlas-and-omni)
 - [11. Smaller, Cheaper, Faster](#11-smaller-cheaper-faster)
 - [12. Test-Time Training: Learning at Inference](#12-test-time-training-learning-at-inference)
+- [13. Skill Engineering: SKILL.md as a Portability Layer](#13-skill-engineering-skillmd-as-a-portability-layer)
 - [A 90-Day Learning Path](#a-90-day-learning-path)
 - [How This Maps to the Guide](#how-this-maps-to-the-guide)
 
@@ -214,6 +215,20 @@ They stack: the ARC result pairs a TTT weight update with augmentation voting, w
 **Maturity (2026):** mostly research and competition, not live serving. Its most battle-tested home is offline ARC-Prize pipelines; the architecture and memory variants are validated at 3-5B params with no public evidence of a frontier model shipping TTT layers in its serving path. Contrast with test-time *compute*, which is in production everywhere. The practical takeaway: reach for prompting, retrieval, or plain fine-tuning first, and watch TTT as the frontier for novel-task adaptation and long-context efficiency.
 
 **Where it connects:** [The Limits of Test-Time Compute](#2-the-limits-of-test-time-compute) (its frozen-weights sibling), [Agent Memory and State](07-agentic-systems/05-agent-memory-and-state.md) (the memory variant), [Fine-Tuning Strategies](03-training-and-adaptation/02-fine-tuning-strategies.md) and [Knowledge Distillation](03-training-and-adaptation/05-knowledge-distillation.md) (the adaptation it temporarily borrows).
+
+---
+
+## 13. Skill Engineering: SKILL.md as a Portability Layer
+
+**Why it matters:** July 2026's surge topic, the way loop engineering was June's. Agent Skills (a folder with a `SKILL.md` carrying YAML name and description frontmatter, plus optional `scripts/`, `references/`, and `assets/`, loaded through progressive disclosure) is now formalized as an open standard at agentskills.io and adopted across vendors: Microsoft Agent Framework shipped support for Python and .NET, Red Hat published guidance pairing `AGENTS.md` with skills for project context, and at AI Engineer World's Fair 2026 "every agent platform building around skills" was named a top-five trend. The claim worth evaluating: skills are becoming the interchange format for encoded workflows, a portability layer alongside MCP (tools) and A2A (agent delegation).
+
+**The stack now has three interop layers.** MCP standardizes what an agent can *touch* (tools and data), A2A standardizes who an agent can *delegate to* (other agents), and skills standardize what an agent *knows how to do* (procedures, house style, domain workflows). A skill is prompt-layer knowledge that travels between platforms; it does not grant capabilities, it encodes competence. That separation matters in design discussions: capability gating stays enforceable at the MCP and harness layers even when skills are user-authored and untrusted.
+
+**The emerging failure modes** already have names. "Skills hell" is proliferation and drift: dozens of overlapping skills competing for the model's attention the way tool sprawl degrades tool selection. Model-version drift is the observation that skills tuned against one model release need re-validation on the next. The practitioner countermeasures mirror tool hygiene: few, focused, tightly described skills; eval coverage per skill; and treating the skill library like a dependency surface with an owner, not a wiki.
+
+**Maturity (July 2026):** real spec, multi-vendor adoption, and production teams hiring specifically to maintain skill libraries, but no cross-vendor conformance suite yet, and the security story for third-party skills (a skill is injected instructions by design) is early. Treat third-party skills like third-party code: review before install, pin versions, and never let a skill's instructions widen an agent's action surface.
+
+**Where it connects:** [Loop Engineering](07-agentic-systems/12-loop-engineering.md) (skills are the reusable-knowledge building block of application loops), [Tool Use and MCP](07-agentic-systems/03-tool-use-and-mcp.md) (the capability layer skills ride on), [Context Engineering](05-prompting-and-context/05-context-engineering.md) (progressive disclosure is a context-budget technique), [Agentic Security](07-agentic-systems/09-agentic-security-and-sandboxing.md) (untrusted skills as an injection surface).
 
 ---
 

@@ -1,13 +1,14 @@
 # Tool Use and MCP
 
-Tools are the "hands" of an agent. The industry has standardized on the **Model Context Protocol (MCP)**, which replaces fragmented custom tool definitions with a unified, local-first communication layer. MCP has matured rapidly: Streamable HTTP transport, OAuth 2.1 auth, and native computer-use tools landed in MCP 2.0 (ratified March 2026). In parallel, **Agent-to-Agent (A2A)** and other interoperability protocols have emerged to complement MCP's tool-access layer with agent coordination capabilities.
+Tools are the "hands" of an agent. The industry has standardized on the **Model Context Protocol (MCP)**, which replaces fragmented custom tool definitions with a unified, local-first communication layer. MCP has matured rapidly: Streamable HTTP transport, OAuth 2.1 auth, and native computer-use tools landed across the 2025 spec revisions (what much of the ecosystem loosely calls MCP 2.0), and the **2026-07-28 revision** rebuilt the protocol core as stateless, the largest overhaul since MCP launched (see [the stateless rewrite](#mcp-2026-07-28) below). In parallel, **Agent-to-Agent (A2A)** and other interoperability protocols have emerged to complement MCP's tool-access layer with agent coordination capabilities.
 
 ## Table of Contents
 
 - [The Tool-Use Mechanism](#mechanism)
 - [Model Context Protocol (MCP)](#mcp)
 - [MCP 2.0: Streamable HTTP & Auth](#mcp-updates)
-- [MCP Roadmap & Ecosystem](#mcp-roadmap)
+- [MCP 2026-07-28: The Stateless Rewrite](#mcp-2026-07-28)
+- [MCP Extensions & Ecosystem (July 2026)](#mcp-roadmap)
 - [Agent-to-Agent Protocol (A2A)](#a2a)
 - [The Protocol Landscape: MCP + A2A + ACP](#protocol-landscape)
 - [Computer-Use Tools (Anthropic)](#computer-use)
@@ -117,22 +118,119 @@ This enables enterprise MCP servers with fine-grained access control per tenant.
 
 ---
 
-## MCP Roadmap & Ecosystem
+## MCP 2026-07-28: The Stateless Rewrite
 
-As of May 2026, over 2,300 public MCP servers exist and major AI tools (Claude, Cursor, Windsurf) support it natively. MCP has crossed from developer tooling into consumer hardware (e.g., Elgato Stream Deck 7.4 shipped with MCP support in March 2026). Microsoft adopted MCP as a primary integration standard for Windows AI Foundry and Microsoft 365 Copilot.
+On July 28, 2026 the MCP project finalized spec revision **2026-07-28**, the largest protocol overhaul since MCP launched, after a ten-week release-candidate freeze. The headline: **the protocol core is now stateless**. The `initialize` handshake and the `Mcp-Session-Id` header are gone; every request carries the protocol version and client capabilities in `_meta`, and servers identify themselves in result `_meta`. Cross-call state moves into explicit server-minted handles passed as ordinary tool arguments. The practical consequence is that a remote MCP server can now run as a horizontally scaled deployment behind a plain round-robin load balancer with zero shared session state, which previously required sticky sessions or a shared session store.
 
-The MCP roadmap focuses on these pillars:
+### How MCP Got Here
 
-1. **Transport Scalability**: Evolving Streamable HTTP toward a **stateless core** that scales horizontally on ordinary HTTP infrastructure, with correct behavior behind load balancers and proxies. **MCP Server Cards** provide a `.well-known` URL for structured server metadata discovery.
-2. **MCP Apps (server-rendered UIs)**: An extension that lets an MCP server ship an interactive UI alongside its tools, so a tool result can render as a component inside the client instead of plain text. This is the spec-level standardization of the pattern OpenAI shipped as the [Apps SDK](../09-frameworks-and-tools/07-autogen-crewai.md). It turns MCP servers from headless tool endpoints into interactive surfaces.
-3. **Tasks extension (long-running work)**: A standard way to model work that does not finish within a single request/response, so a client can kick off a long job, poll or subscribe for progress, and collect the result later. This is what makes MCP viable for agentic workloads that take minutes or hours rather than seconds.
-4. **Agent Communication**: Enabling agent-to-agent patterns on top of MCP's existing tool layer.
-5. **Enterprise Authentication (Q2 2026)**: OAuth 2.1 with PKCE for browser-based agents plus SAML/OIDC integration for enterprise identity providers, unlocking regulated-industry deployments.
-6. **MCP Registry (Q4 2026)**: A curated, verified server directory with security audits, usage statistics, and SLA commitments.
+```mermaid
+flowchart LR
+    A[Nov 2024<br>MCP launches<br>stdio + HTTP SSE] --> B[2025 revisions<br>Streamable HTTP, OAuth 2.1,<br>elicitation]
+    B --> C[Jan 26, 2026<br>MCP Apps ships as<br>first official extension]
+    C --> D[Jun 18, 2026<br>Enterprise-Managed<br>Authorization stable]
+    D --> E[Jul 28, 2026<br>Stateless core<br>MRTR, extensions framework]
+```
 
-**Governance**: The MCP Governance Working Group introduced a Contributor Ladder and a delegation model allowing domain-specific working groups to accept SEPs (Specification Enhancement Proposals) without full core-maintainer review.
+### Three Generations of MCP, Compared
 
-> *Verified May 2026. Source: modelcontextprotocol.io/development/roadmap*
+| Dimension | Launch (Nov 2024) | Streamable HTTP era (2025 revisions) | 2026-07-28 revision |
+|-----------|-------------------|--------------------------------------|---------------------|
+| **Session model** | Stateful `initialize` handshake | Stateful, `Mcp-Session-Id` over Streamable HTTP | Stateless; version and capabilities ride in `_meta` on every request |
+| **Transport** | stdio, HTTP+SSE | Adds Streamable HTTP | Streamable HTTP with mandatory `Mcp-Method` / `Mcp-Name` routing headers; HTTP+SSE formally deprecated |
+| **Server-initiated requests** | Sampling, roots (server push) | Adds elicitation | Removed; replaced by Multi Round-Trip Requests (client retries with state) |
+| **Mid-call user input** | None | `elicitation/create` push | `input_required` result + client retry with `requestState` |
+| **Long-running work** | None | Experimental | Tasks official extension (poll-based handles) |
+| **Server-rendered UI** | None | MCP Apps ships as an extension (Jan 2026) | MCP Apps folded into the formal extensions framework |
+| **Auth** | None standardized | OAuth 2.1 + PKCE, Dynamic Client Registration | OAuth hardened: RFC 9207 `iss` validation, issuer-bound credentials, CIMD replaces DCR; EMA extension for enterprise IdPs |
+| **List caching** | None | None | Required `ttlMs` + `cacheScope` on list and read results; deterministic tool ordering for prompt-cache hits |
+| **Stream recovery** | None | SSE `Last-Event-ID` resumability | Removed; clients re-issue the request, durable work uses Tasks |
+| **Horizontal scaling** | Single process | Sticky sessions behind a load balancer | Any instance serves any request; no shared state |
+
+### Multi Round-Trip Requests (MRTR)
+
+The server-initiated request pattern (`elicitation/create`, `sampling/createMessage`, `roots/list`) is removed. When a server needs mid-call user input, it returns a result with `resultType: "input_required"`, an `inputRequests` array, and an opaque `requestState` blob; the client collects the input and retries the original request with `inputResponses` attached. Because the state rides in the retry, any server instance behind the load balancer can resume the interrupted call. This is what makes human-in-the-loop approval gates compatible with stateless horizontal scaling.
+
+```mermaid
+sequenceDiagram
+    participant C as MCP Client
+    participant LB as Load balancer
+    participant S1 as Server instance 1
+    participant S2 as Server instance 2
+
+    C->>LB: tools/call archive_records
+    LB->>S1: route to any instance
+    S1-->>C: resultType input_required + requestState
+    Note over C: Client collects user approval
+    C->>LB: retry tools/call with inputResponses + requestState
+    LB->>S2: a different instance is fine
+    S2-->>C: resultType complete
+```
+
+All results now carry a required `resultType` field (`complete` or `input_required`; extensions such as Tasks add further values); results from older servers that lack it are treated as `complete`.
+
+### What Is Deprecated or Removed
+
+The revision also adopts a formal feature lifecycle (Active, Deprecated, Removed) with a minimum twelve-month deprecation window and a public deprecated-features registry. For features newly deprecated in this revision (Roots, Sampling, Logging, DCR) the earliest removal is July 28, 2027; HTTP+SSE, deprecated back in March 2025, runs on an earlier clock.
+
+| Feature | Status in 2026-07-28 | Migrate to |
+|---------|----------------------|------------|
+| `initialize` handshake, `Mcp-Session-Id` | Removed | Version and capabilities in `_meta` per request; `server/discover` RPC for probing |
+| `elicitation/create`, `sampling/createMessage`, `roots/list` | Removed | Multi Round-Trip Requests |
+| SSE stream resumability (`Last-Event-ID`) | Removed | Re-issue the request; Tasks extension for durable work |
+| Roots | Deprecated | Pass directories via tool parameters, resource URIs, or server config |
+| Sampling | Deprecated | Call the LLM provider API directly |
+| Logging | Deprecated | stderr (stdio) or OpenTelemetry |
+| HTTP+SSE transport | Formally deprecated | Streamable HTTP |
+| Dynamic Client Registration (RFC 7591) | Deprecated | Client ID Metadata Documents (client ID is a URL hosting the client's metadata) |
+
+The RPC mechanisms (`elicitation/create`, `sampling/createMessage`, `roots/list`) are removed from the core protocol while the features they served are deprecated with migration paths, which is why both kinds of rows appear above.
+
+Two smaller but design-relevant transport changes: `Mcp-Method` and `Mcp-Name` HTTP headers are now mandatory on Streamable HTTP POSTs, so load balancers, gateways, and WAFs can route and filter MCP traffic without parsing JSON-RPC bodies; and list results (`tools/list`, `prompts/list`, `resources/list`) must declare `ttlMs` and `cacheScope`, giving clients a principled answer to caching tool catalogs.
+
+### The Extensions Framework
+
+The core is now deliberately small; everything else is an **extension**, identified by reverse-DNS ID, versioned independently of the core spec, and governed through an Extensions Track in the SEP process. The official extensions include:
+
+| Extension | Status | What it does |
+|-----------|--------|--------------|
+| **Tasks** (`io.modelcontextprotocol/tasks`) | Official; redesigned poll-based lifecycle, contributed by AWS | A tool call can answer with a task handle; the client polls `tasks/get`, pushes mid-task input with `tasks/update`, cancels with `tasks/cancel`. The standard answer for work that outlives a request. |
+| **MCP Apps** | Official since January 26, 2026 | A tool declares a `ui://` template; the host renders it in a sandboxed iframe (no DOM access, deny-by-default CSP), UI-to-host communication is postMessage-carried JSON-RPC, and UI-triggered actions go through the same tool-call consent path. Rendered by Claude, ChatGPT, VS Code, Goose, and Microsoft 365 Copilot, among others. |
+| **Enterprise-Managed Authorization (EMA)** | Stable since June 18, 2026 | An organization provisions MCP server access centrally through its IdP: an OIDC or SAML assertion is exchanged (RFC 8693) for an ID-JAG, which a JWT bearer grant (RFC 7523) trades for an MCP access token, with no per-user consent screens. Okta is the first supported IdP; Claude and VS Code shipped support at launch. |
+
+### Migration Checklist
+
+- Remove `initialize` / session-ID logic; send version and capabilities in `_meta`, and implement the `server/discover` RPC (now a MUST).
+- Convert elicitation and sampling flows to MRTR: return `input_required` with `requestState`, accept retries with `inputResponses`.
+- Move any cross-call state into explicit handles passed as tool arguments, or adopt the Tasks extension.
+- Emit `Mcp-Method` / `Mcp-Name` headers, declare `ttlMs` / `cacheScope` on list results, and return tools in deterministic order.
+- Plan the auth migration from DCR to Client ID Metadata Documents; validate `iss` per RFC 9207 and never reuse client credentials across issuers.
+- Budget real work: the maintainers themselves warn that custom implementations face significant uplift.
+
+> *Verified July 31, 2026. Sources: modelcontextprotocol.io/specification/2026-07-28/changelog, blog.modelcontextprotocol.io*
+
+---
+
+## MCP Extensions & Ecosystem (July 2026)
+
+The roadmap items this chapter tracked through May 2026 have largely shipped, and the ecosystem numbers moved another order of magnitude. Status as of July 2026:
+
+| Roadmap item (May 2026 framing) | Status (July 2026) |
+|---------------------------------|--------------------|
+| Transport scalability / stateless core | **Shipped** in the 2026-07-28 revision (see [the stateless rewrite](#mcp-2026-07-28)) |
+| MCP Apps (server-rendered UIs) | **Shipped** January 26, 2026 as the first official extension; rendered by Claude, ChatGPT, VS Code, Goose, and Microsoft 365 Copilot, among others; early apps-shipping partners include Figma, monday.com, and Adobe Express |
+| Tasks extension (long-running work) | **Shipped** as the official `io.modelcontextprotocol/tasks` extension, redesigned around poll-based task handles |
+| Enterprise authentication | **Shipped** June 18, 2026 as the Enterprise-Managed Authorization extension (Okta first IdP; Claude and VS Code at launch) |
+| MCP Server Cards (`.well-known` discovery) | Still a draft, developed as an experimental extension (SEP-2127). Distinct from the new core `server/discover` RPC, which is an in-protocol capability query |
+| MCP Registry | Still in preview (`registry.modelcontextprotocol.io`); GA timing unannounced |
+
+**Discovery now has two layers worth keeping straight:** pre-connection HTTP discovery via `.well-known` server cards (experimental; feeds registries and crawlers) versus the in-protocol `server/discover` RPC (mandatory core since 2026-07-28; feeds version negotiation).
+
+**Ecosystem scale (July 2026):** official MCP SDKs run at roughly 500M monthly downloads with the TypeScript and Python SDKs past 1B total each. Beta SDKs for the 2026-07-28 revision shipped June 29, and at the July 28 final release AWS, Cloudflare, Google Cloud, Microsoft, and Netlify announced launch support. Microsoft rolled out MCP-based Federated Copilot Connectors manageable from the Microsoft 365 admin center, Apple made Xcode an MCP host for external coding agents, and Bloomberg has published a production case study of MCP as its internal agent-tool layer.
+
+**Governance**: MCP is governed under the Linux Foundation's Agentic AI Foundation. The Governance Working Group runs a Contributor Ladder and a delegation model allowing domain-specific working groups to accept SEPs (Specification Enhancement Proposals) without full core-maintainer review; the 2026-07-28 revision added a formal Extensions Track.
+
+> *Verified July 31, 2026. Sources: modelcontextprotocol.io, blog.modelcontextprotocol.io*
 
 ---
 
@@ -179,7 +277,7 @@ In production enterprise systems, multiple protocols operate at different layers
 
 | Protocol | Layer | Purpose | Governed By |
 |----------|-------|---------|-------------|
-| **MCP** | Agent-to-Tool | Universal tool and data access | Anthropic (open spec) |
+| **MCP** | Agent-to-Tool | Universal tool and data access | Linux Foundation (Agentic AI Foundation) |
 | **A2A** | Agent-to-Agent | Cross-vendor agent delegation | Linux Foundation |
 | **ACP** | Agent Communication | Lightweight async agent messaging (REST) | IBM / Linux Foundation |
 
@@ -376,6 +474,8 @@ They address **different communication layers**. MCP is the agent-to-tool protoc
 ---
 
 ## References
+- Model Context Protocol. "Specification revision 2026-07-28: Changelog" (July 2026). https://modelcontextprotocol.io/specification/2026-07-28/changelog
+- Model Context Protocol blog. "Enterprise-Managed Authorization" (June 2026). https://blog.modelcontextprotocol.io/posts/enterprise-managed-auth/
 - Anthropic. "The Model Context Protocol Specification" (2025)
 - Google. "Agent2Agent Protocol Specification v0.3" (2026)
 - Linux Foundation. "Agent2Agent Protocol Project" (2025)

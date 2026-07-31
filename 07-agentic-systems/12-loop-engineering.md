@@ -196,6 +196,8 @@ flowchart TD
 
 The reported failure cases are not hypothetical: an agent that called a broken tool 400 times in five minutes, an 847-step run that never produced an answer, and retry loops that accrued tens of thousands of dollars over days (figures from practitioner write-ups). Almost all of them lacked an external budget guard and a stagnation breaker.
 
+Model-level mitigation is emerging alongside these harness-level guards: in July 2026 one lab reported that a targeted fine-tune against repetitive reasoning spirals cut a small open-weights reasoning model's doom-loop rate from 22.9 percent to 1 percent on its benchmarks. Those are reasoning-token loops rather than tool-call loops, and the result is complementary evidence that the failure mode is real and trainable-against, not a replacement for harness enforcement; the stop conditions above still apply to a model that loops one time in a hundred.
+
 ---
 
 ## Context and Memory in Long Loops

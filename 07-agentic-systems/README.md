@@ -47,7 +47,7 @@ flowchart LR
 |------|----------------|
 | [01-agent-fundamentals.md](01-agent-fundamentals.md) | What makes a system an "agent"; the agent vs workflow distinction; when to choose each. |
 | [02-reasoning-loops-react-and-beyond.md](02-reasoning-loops-react-and-beyond.md) | ReAct, Plan-and-Execute, Reflexion, Tree-of-Thought; loop design patterns. |
-| [03-tool-use-and-mcp.md](03-tool-use-and-mcp.md) | Function calling, Model Context Protocol (MCP), A2A v1.0, MCP production hardening. |
+| [03-tool-use-and-mcp.md](03-tool-use-and-mcp.md) | Function calling, Model Context Protocol (MCP), the 2026-07-28 stateless rewrite, A2A v1.0, MCP production hardening. |
 | [04-multi-agent-orchestration.md](04-multi-agent-orchestration.md) | When multi-agent helps and when it hurts; orchestration vs choreography. |
 | [05-agent-memory-and-state.md](05-agent-memory-and-state.md) | The L1-L4 memory hierarchy (Working, Episodic, Semantic, Procedural) with tradeoffs. |
 | [06-planning-and-decomposition.md](06-planning-and-decomposition.md) | Task decomposition, plan revision, long-horizon planning. |
