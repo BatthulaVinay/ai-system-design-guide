@@ -98,7 +98,7 @@ flowchart TD
 | Real pricing with August 2026 verification dates | Already wrong |
 | Staff-level interview Q&A (128 questions through August 2026) + Job Market Trends | Generic questions |
 
-**Quick model picker (August 2026):** Claude Fable 5 for the capability ceiling ($10/$50 per 1M), Claude Opus 5 for long-horizon agentic coding at $5/$25, Claude Sonnet 5 as the production default ($2/$10, now permanent), GPT-5.6 Terra for general production ($2/$12) with Luna at $0.20/$1.20 for volume tiers, Gemini 3.7 Flash at a half-price $0.75/$3.75 through year-end, Kimi K3 or Muse Glimmer for open weights. Note that DeepSeek V4 stopped being the automatic cheap answer on August 16, when prices rose 3x to 12x and moved to peak and off-peak billing. Full breakdown in [Model Taxonomy](02-model-landscape/01-model-taxonomy.md).
+**Quick model picker (August 2026):** Claude Fable 5 for the capability ceiling ($10/$50 per 1M), Claude Opus 5 for long-horizon agentic coding at $5/$25, Claude Sonnet 5 as the production default ($2/$10, now permanent), GPT-5.6 Terra for general production ($2/$12) with Luna at $0.20/$1.20 for volume tiers, Gemini 3.7 Flash at a half-price $0.75/$3.75 through year-end, Kimi K3 or Muse Glimmer for open weights. Note that DeepSeek V4 stops being the automatic cheap answer on August 16, when prices rise 3x to 12x and move to peak and off-peak billing. Full breakdown in [Model Taxonomy](02-model-landscape/01-model-taxonomy.md).
 
 ---
 

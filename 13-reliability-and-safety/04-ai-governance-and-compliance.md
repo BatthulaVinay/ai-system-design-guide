@@ -36,8 +36,8 @@ Regulation (EU) 2024/1689 is the world's first comprehensive AI law, structured 
 | Aug 2025 | GPAI model obligations, governance, and penalties apply | Enforceable now |
 | **Aug 2026** | **Article 50 transparency obligations apply; Commission gains Article 101 power to fine GPAI providers** | **Enforceable since 2 August 2026** |
 | Dec 2026 | New ban on AI-generated CSAM/NCII; synthetic-content marking grace period ends | Upcoming |
-| Dec 2027 | High-risk Annex III obligations apply (delayed ~16 months) | Provisional, see below |
-| Aug 2028 | High-risk Annex I obligations apply (delayed ~1 year) | Provisional |
+| Dec 2027 | High-risk Annex III obligations apply (delayed ~16 months) | Settled: Reg. (EU) 2026/1744 |
+| Aug 2028 | High-risk Annex I obligations apply (delayed ~1 year) | Settled: Reg. (EU) 2026/1744 |
 
 ### What Actually Took Effect on 2 August 2026
 
@@ -53,7 +53,7 @@ Penalties for Article 50 breaches run to **EUR 15,000,000 or 3% of total worldwi
 
 **California landed the same day and is more prescriptive.** SB 942 as amended by AB 853 became operative on 2 August 2026. A covered provider (a generative AI system with over 1,000,000 monthly visitors or users, publicly accessible in California) must embed a latent disclosure carrying the provider name, the system name and version, the creation or alteration timestamp, and a unique identifier, and must offer a **free public AI-detection tool**. Penalties are USD 5,000 per violation with each day counting separately.
 
-**The practical implication:** build to the California field list and you satisfy both, because it is the stricter superset. Treat the detection tool as a shipped product surface with an SLO and abuse protection, not as a compliance document. And remember the honest limit: marking is removable, so provenance reduces ambiguity for cooperating consumers of content and is not a control against a determined adversary.
+**The practical implication:** the two regimes overlap but neither contains the other. California is more prescriptive about what a latent disclosure must carry, so use its four fields as the metadata schema for image, video, and audio. The EU adds what California omits, most importantly **text** marking (California's latent-disclosure duty covers image, video, and audio, and AB 853 excludes AI-generated text) plus AI-interaction disclosure and deployer-side deepfake labeling. Build the union, not one or the other. Treat the detection tool as a shipped product surface with an SLO and abuse protection, not as a compliance document. And remember the honest limit: marking is removable, so provenance reduces ambiguity for cooperating consumers of content and is not a control against a determined adversary.
 
 **A note on what marking looks like in production.** Text watermarking moved from research to shipping in this window: at least one frontier lab now applies an invisible statistical watermark to text output across its surfaces, using a published approach, with older models being updated over subsequent months. If you generate text at scale in the EU, the question is no longer whether text marking is feasible.
 

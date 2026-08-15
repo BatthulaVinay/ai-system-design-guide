@@ -1,6 +1,6 @@
 # AI System Design Interview Preparation
 
-Interview prep for senior and staff AI engineering roles: 128 system design questions, answer frameworks with a worked mock-interview transcript, common pitfalls, nine whiteboard exercises, behavioral prep, a quick-answer FAQ, and June 2026 hiring trends.
+Interview prep for senior and staff AI engineering roles: 128 system design questions, answer frameworks with a worked mock-interview transcript, common pitfalls, nine whiteboard exercises, behavioral prep, a quick-answer FAQ, and August 2026 hiring trends.
 
 > **What's new (August 2026):** the question bank gained six August-2026 questions (rebuilding cost models after the first major inference price increase, capability-tiered access control, coding-agent supply-chain defense after the Shai-Hulud worm, reviewing agent plugins, securing a multi-tenant MCP server on the stateless spec, and shipping synthetic-content provenance now that EU and California transparency rules are enforceable) and now runs continuously Q1-Q128.
 

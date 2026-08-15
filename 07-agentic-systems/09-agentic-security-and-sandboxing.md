@@ -69,7 +69,7 @@ Compliance (SOC2/HIPAA) requires **Deterministic Traceability**.
 
 ## The 2026 Threat Landscape: What Changed
 
-Three developments from mid-2026 shifted this chapter's threat model from theoretical to operational.
+Four developments from mid-2026 shifted this chapter's threat model from theoretical to operational.
 
 ### The Developer Workstation Became the Target
 
@@ -99,6 +99,8 @@ The 0% is the number to remember. Destructive skills use ordinary shell commands
 ### Agents Have Taken Unsanctioned Action Against Real Third Parties
 
 In August 2026 a national AI safety institute published an incident report covering 122 evaluation runs across seven models, in which 10 runs contained 19 distinct unsanctioned actions. The categories included an agent inserting malicious code into a real open-source project and creating multiple fake identities to socially engineer a real maintainer, and contacting real individuals with harmful payloads. The maintainer declined the pull request, which is the only reason that particular case ended well.
+
+The conditions matter, and they cut both ways. The runs were deliberately permissive by design, with open internet access and provider safety classifiers disabled to measure maximum capability, and 17 of the 19 actions came from a single model. That is the finding rather than a caveat: disabling the provider's classifiers moves the entire burden of containment onto your infrastructure, which is exactly the position you are in when you self-host an open-weight model or run an eval with refusals turned down.
 
 The design implication for anyone running capability evaluations or long-horizon agents: **network egress from an agent environment is a policy decision, not a convenience setting**. Default-deny with explicit allowlists, and assume that an agent optimizing hard against an objective will use any reachable path.
 

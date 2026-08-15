@@ -9,7 +9,7 @@ Tools are the "hands" of an agent. The industry has standardized on the **Model 
 - [MCP 2.0: Streamable HTTP & Auth](#mcp-updates)
 - [MCP 2026-07-28: The Stateless Rewrite](#mcp-2026-07-28)
 - [MCP Extensions & Ecosystem (August 2026)](#mcp-roadmap)
-- [Agent Plugins: Packaging Skills and Servers Together](#agent-plugins)
+- [Agent Plugins](#agent-plugins)
 - [Agent-to-Agent Protocol (A2A)](#a2a)
 - [The Protocol Landscape: MCP + A2A + ACP](#protocol-landscape)
 - [Computer-Use Tools (Anthropic)](#computer-use)
@@ -220,16 +220,16 @@ The roadmap items this chapter tracked through May 2026 have largely shipped. St
 |---------------------------------|--------------------|
 | Transport scalability / stateless core | **Shipped** in the 2026-07-28 revision (see [the stateless rewrite](#mcp-2026-07-28)) |
 | MCP Apps (server-rendered UIs) | **Shipped** January 26, 2026 as the first official extension; rendered by Claude, ChatGPT, VS Code, Goose, and Microsoft 365 Copilot, among others; early apps-shipping partners include Figma, monday.com, and Adobe Express |
-| Tasks extension (long-running work) | **Shipped**. Graduated out of experimental status on August 2, 2026 as the official `io.modelcontextprotocol/tasks` extension, redesigned around poll-based task handles. A new Agents Working Group, chartered August 5, is now working toward promoting it into the core protocol |
+| Tasks extension (long-running work) | **Shipped.** The 2026-07-28 revision moved Tasks out of the experimental core into the `io.modelcontextprotocol/tasks` extension, redesigned around poll-based task handles. The reference repository is still labeled experimental, so treat the interface as settling rather than settled. The Agents Working Group (active since February 2026, charter still pending) is the group incubating it |
 | Enterprise authentication | **Shipped** June 18, 2026 as the Enterprise-Managed Authorization extension (Okta first IdP; Claude and VS Code at launch) |
 | MCP Server Cards (`.well-known` discovery) | Still a draft, developed as an experimental extension (SEP-2127). Distinct from the new core `server/discover` RPC, which is an in-protocol capability query |
 | MCP Registry | Still in preview (`registry.modelcontextprotocol.io`); GA timing unannounced. Release v1.8.1 fixed a GitHub Pages organization-namespace takeover |
 
 **Discovery now has two layers worth keeping straight:** pre-connection HTTP discovery via `.well-known` server cards (experimental; feeds registries and crawlers) versus the in-protocol `server/discover` RPC (mandatory core since 2026-07-28; feeds version negotiation).
 
-**Ecosystem scale (August 2026):** MCP passed **400M monthly SDK downloads**, a 4x increase across the year, and Claude's connector directory alone lists **over 950 MCP servers**. At the July 28 final release AWS, Cloudflare, Google Cloud, Microsoft, and Netlify announced launch support.
+**Ecosystem scale (August 2026):** SDK downloads run in the hundreds of millions per month. The protocol's own July 28 release post cited close to half a billion monthly across Tier 1 SDKs; Anthropic separately reported 400M monthly and a 4x increase across the year, so treat the aggregate as an order of magnitude rather than a precise figure and check the metric definition before quoting it. One connector directory alone now lists **over 950 MCP servers**. At the July 28 final release AWS, Cloudflare, Google Cloud, Microsoft, and Netlify announced launch support.
 
-**But the migration to the stateless revision is early.** Measured over the 30 days to August 14, the v1 TypeScript SDK (`@modelcontextprotocol/sdk`) drew roughly 206M npm downloads against about 3.9M for the new v2 line (`@modelcontextprotocol/core`), so v2 is running near 2% of v1 volume a few weeks after GA. Plan for a long dual-version period: the C# SDK v2.2.0 (August 13) added an `HttpServerSessionMode` that lets a single endpoint serve both 2025-11-25 stateful clients and 2026-07-28 stateless clients at once, which is the pattern to copy if you operate a server fleet with mixed clients. SDK maturity is moving quickly alongside it: the Rust SDK reached 3.1.x with stateless validation, the Ruby SDK hit 1.0 and moved to Tier 2, and a conformance suite (0.2.0-alpha.11) now publishes frozen requirement sets for the revision. Microsoft rolled out MCP-based Federated Copilot Connectors manageable from the Microsoft 365 admin center, Apple made Xcode an MCP host for external coding agents, and Bloomberg has published a production case study of MCP as its internal agent-tool layer.
+**But the migration to the stateless revision is early.** Measured over the 30 days to August 14, the v1 TypeScript SDK (`@modelcontextprotocol/sdk`) drew roughly 200M npm downloads. The v2 line is split across packages rather than one, with `@modelcontextprotocol/server` around 5.3M, `@modelcontextprotocol/core` around 3.9M, and `@modelcontextprotocol/client` around 2.9M, so on any single-package comparison v2 is running in the low single-digit percentage of v1 volume a few weeks after GA. Plan for a long dual-version period: the C# SDK v2.2.0 (August 13) added an `HttpServerSessionMode` that lets a single endpoint serve both 2025-11-25 stateful clients and 2026-07-28 stateless clients at once, which is the pattern to copy if you operate a server fleet with mixed clients. SDK maturity is moving quickly alongside it: the Rust SDK reached 3.1.x with stateless validation, the Ruby SDK hit 1.0 and moved to Tier 2, and a conformance suite (0.2.0-alpha.11) now publishes frozen requirement sets for the revision. Microsoft rolled out MCP-based Federated Copilot Connectors manageable from the Microsoft 365 admin center, Apple made Xcode an MCP host for external coding agents, and Bloomberg has published a production case study of MCP as its internal agent-tool layer.
 
 **Governance**: MCP is governed under the Linux Foundation's Agentic AI Foundation. The Governance Working Group runs a Contributor Ladder and a delegation model allowing domain-specific working groups to accept SEPs (Specification Enhancement Proposals) without full core-maintainer review; the 2026-07-28 revision added a formal Extensions Track.
 
@@ -237,7 +237,7 @@ The roadmap items this chapter tracked through May 2026 have largely shipped. St
 
 ---
 
-## Agent Plugins: Packaging Skills and Servers Together
+## Agent Plugins
 
 MCP standardizes how an agent reaches a tool. **Agent Plugins**, which reached 1.0.0 on August 6, 2026, standardizes how you *ship* a bundle of capability to an agent. It is a vendor-neutral packaging format governed by a technical steering committee spanning five member organizations, and GitHub made it generally available across VS Code, Copilot CLI, the Copilot SDK, and the Copilot app on August 12.
 

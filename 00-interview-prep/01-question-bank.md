@@ -5208,7 +5208,7 @@ The principle interviewers are probing: prompt injection remains unsolved, so th
 
 1. **Price becomes configuration, not code.** A rate table keyed by provider, model, token type, and time window, versioned and dated. Cost projections read from it. When a provider reprices, I change one file and re-run the projections rather than grepping for dollar amounts across a codebase.
 2. **Cost per resolved task, not per token.** The repricing hit cache-hit input hardest, which punishes exactly the cache-heavy agent loops that looked cheapest per token. I measure the unit that matters to the business and let the router optimize against it.
-3. **Time-aware routing.** Peak and off-peak billing is new in this market and it maps cleanly onto work that is already deferrable. Batch classification, backfills, and nightly evaluation runs move to off-peak windows; interactive traffic does not. That is a scheduling change, not a model change, and it recovers half the increase on the deferrable share.
+3. **Time-aware routing.** Peak and off-peak billing is new in this market and it maps cleanly onto work that is already deferrable. Batch classification, backfills, and nightly evaluation runs move to off-peak windows; interactive traffic does not. That is a scheduling change, not a model change, and it halves the bill on the deferrable share.
 4. **Capability-equivalence classes, not a favorite model.** I maintain a matrix of which models can actually serve which step, given tool-call fidelity, context length, and output format. Repricing then becomes a routing-policy edit inside an equivalence class rather than a migration.
 5. **Contract and lock-in review.** Introductory pricing is a dated fact. Sonnet 5's became permanent; Gemini 3.7 Flash's half-price rate expires December 31 and then doubles. I annotate every introductory rate with its expiry in the rate table and run the model against the post-expiry number before committing volume.
 
@@ -5337,6 +5337,7 @@ The subtle part is what changed. In the stateful era the session carried identit
 **One caution I would raise in the room:** marking is removable. Provenance reduces ambiguity for cooperating consumers of the content; it is not a control against a determined adversary, and presenting it as one to a regulator or an executive sets up a bad conversation later."
 
 **Follow-up to expect:** What about the high-risk obligations everyone was preparing for? (They moved. The Digital Omnibus became law as Regulation (EU) 2026/1744, in force July 27, 2026, pushing Annex III high-risk duties to December 2027 and product-embedded high-risk to August 2028. The transparency work is now the near-term deliverable; keep building eval documentation for the later deadlines.)
+
 ---
 
 ## Key Takeaways
