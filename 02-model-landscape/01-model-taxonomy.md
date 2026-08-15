@@ -150,7 +150,7 @@ This chapter provides a comprehensive guide to the model landscape as of **Augus
 - **Effort-control toggle** in `claude.ai` and Cowork lets users tune reasoning depth per turn.
 - **Expanded Claude Code rate limits**.
 
-**Considerations:** Tokenizer is the same one introduced in Opus 4.7 (up to 35% more tokens than the pre-4.7 tokenizer for the same fixed text). GPT-5.5 still holds the SWE-Bench Verified leaderboard at 88.7% and leads Terminal-Bench 2.1 at 78.2%. GPQA Diamond slipped 0.6 pts versus Opus 4.7. Anthropic's tokenizer change means token counts and bills for the same text are not directly comparable to pre-4.7 models. There is **no Claude Sonnet 4.8 release** as of May 29, 2026; Sonnet 4.6 remains the production workhorse.
+**Considerations:** Tokenizer is the same one introduced in Opus 4.7 (up to 35% more tokens than the pre-4.7 tokenizer for the same fixed text). GPT-5.5 still holds the SWE-Bench Verified leaderboard at 88.7% and leads Terminal-Bench 2.1 at 78.2%. GPQA Diamond slipped 0.6 pts versus Opus 4.7. Anthropic's tokenizer change means token counts and bills for the same text are not directly comparable to pre-4.7 models. There was no Claude Sonnet 4.8; the line jumped to **Claude Sonnet 5** on June 30, 2026, which replaced Sonnet 4.6 as the production workhorse.
 
 > [!NOTE]
 > **Retired August 5, 2026:** `claude-opus-4-1-20250805` was removed from the Claude API, closing out the last $15/$75 per 1M Opus tier. Every first-party Anthropic Opus SKU is now $5/$25 (or $10/$50 in Fast mode). The model remains available on Amazon Bedrock and Google Cloud, which set their own retirement schedules, so code pinned to that ID fails on the first-party API while still working on the partner clouds.
@@ -277,7 +277,7 @@ This chapter provides a comprehensive guide to the model landscape as of **Augus
 | Model ID | `gpt-5.6-cyber` |
 | Context Window | 400K total (272K max input, 128K max output) |
 | Input / Output Cost | $12.50 / $75.00 per 1M; cached input $1.25 |
-| Access | Daybreak Red tier only, with identity verification, legal attestations, and approved use cases. Responses API only. Hardware security keys become mandatory on every Daybreak account from September 1, 2026 |
+| Access | Daybreak Red tier only, with identity verification, legal attestations, and approved use cases. Responses API only. Hardware security keys become mandatory on individual Daybreak accounts from September 1, 2026 |
 | Refusal posture | Trained for a lower refusal rate on dual-use security work: 95.0% completion on OpenAI's internal Advanced Cybersecurity Completion Rate eval versus 1.5% for GPT-5.6 Sol |
 | Released | August 10, 2026 (the Daybreak Blue and Red tier split appears in the API changelog dated August 7) |
 
@@ -607,7 +607,6 @@ The pattern worth noting: the small-model tier stopped competing on chat quality
 ---
 
 ## Specialized Models
-
 
 ### Coding Mastery (June 2026)
 

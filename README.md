@@ -263,7 +263,7 @@ AI agents are LLM-driven systems that plan, call tools, and act over multiple st
 MCP is an open protocol that lets LLMs discover and call external tools and data sources in a standardized way. A2A (Agent-to-Agent) is a complementary protocol for inter-agent communication. They solve different layers: MCP is the tool boundary, A2A is the agent boundary. See [Tool Use and MCP](07-agentic-systems/03-tool-use-and-mcp.md).
 
 ### Which LLM should I use in production: Claude, GPT, Gemini, or open-source?
-It depends on latency budget, context length, cost per million tokens, tool-use quality, and data residency. The [Model Taxonomy](02-model-landscape/01-model-taxonomy.md) and [Pricing](02-model-landscape/03-pricing-and-costs.md) chapters give a head-to-head for Claude Opus 4.8, GPT-5.5, Gemini 3.1 Pro, DeepSeek V4, Llama 4, and others as of June 2026.
+It depends on latency budget, context length, cost per million tokens, tool-use quality, and data residency. The [Model Taxonomy](02-model-landscape/01-model-taxonomy.md) and [Pricing](02-model-landscape/03-pricing-and-costs.md) chapters give a head-to-head for Claude Opus 5, Claude Sonnet 5, GPT-5.6, Gemini 3.7 Flash, Grok 4.6, DeepSeek V4, and others as of August 2026.
 
 ### How do I evaluate an LLM or RAG system in production?
 Combine offline evals (LLM-as-a-judge with ground-truth calibration), online metrics (faithfulness, context recall, answer relevance), and continuous tracing. The companion deep-dives [AI Evals: Phoenix + Langfuse](ai_evals_comprehensive_study_guide.md) and [AI Evals: LangWatch + Langfuse](ai_evals_complete_guide_langwatch_langfuse.md) walk through this end-to-end.
@@ -278,7 +278,7 @@ Agentic RAG combines retrieval with an agent loop that can decide what to search
 Yes, MIT-licensed and free. PRs are welcome; see [Contributing Guide](CONTRIBUTING.md). If you have production failure modes, new model benchmarks, or interview questions to add, open a PR.
 
 ### How often is this guide updated?
-Continuously. New model releases, protocol changes (MCP, A2A), and emerging patterns are added as they ship. Recent additions include [Tool-Use and Computer Agents](17-tool-use-and-computer-agents/01-tool-use-landscape.md) and the [June 2026 Job Market Trends](00-interview-prep/06-job-market-trends-2026.md).
+Continuously. New model releases, protocol changes (MCP, A2A), and emerging patterns are added as they ship. Recent additions include [Tool-Use and Computer Agents](17-tool-use-and-computer-agents/01-tool-use-landscape.md) and the [August 2026 Job Market Trends](00-interview-prep/06-job-market-trends-2026.md).
 
 ### Can I use this guide if I am transitioning from backend, QA, PM, or EM into AI?
 Yes. The [Role Transition Guide](TRANSITION_GUIDE.md) maps existing skills to AI engineering, MLE, and AI architect tracks, with reading paths per role. Pair it with [COURSES.md](COURSES.md) for curated learning resources.

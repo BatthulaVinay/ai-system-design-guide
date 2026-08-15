@@ -74,5 +74,5 @@ mindmap
 - The files are designed to be read in order; jumping straight to questions without absorbing answer frameworks leaves answers unstructured.
 - Whiteboard exercises (file 04) are the closest simulation to real interviews; do at least three before any loop.
 - Behavioral prep (file 05) is what separates staff candidates from senior candidates; do not skip it.
-- The June 2026 job market chapter (file 06) is a moat: candidates who know the hiring landscape can ask better questions and tailor stories.
+- The August 2026 job market chapter (file 06) is a moat: candidates who know the hiring landscape can ask better questions and tailor stories.
 - Recheck this folder monthly; new question batches are added as hiring trends shift.

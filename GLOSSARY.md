@@ -180,7 +180,7 @@ Quick reference for key terms used throughout this guide.
 
 **Loop Engineering** - The discipline of designing and continuously improving the control loops that wrap an agent (the trigger, the inner reason-act-observe loop, a verification loop, event-driven invocation, and an eval-driven improvement loop) instead of hand-prompting the model each turn. See [Loop Engineering](07-agentic-systems/12-loop-engineering.md).
 
-**Managed Agents** - Provider-hosted agent runtimes that supply the harness (persistence, memory, skill loading, sandbox lifecycle, durable execution, identity scoping) so you supply only the agent logic. Became a named category in 2026 once the loop shape and the tool protocol both stabilized, making the layer commoditizable.
+**Managed Agents** - Provider-hosted agent runtimes that supply the harness (persistence, memory, skill loading, sandbox lifecycle, durable execution, identity scoping) so you supply only the agent logic. Became a named category in 2026 once the loop shape and the tool protocol both stabilized, making the layer commoditizable. See [Research Radar](RESEARCH-RADAR.md#14-graph-engineering-and-the-orchestration-consensus).
 
 **Loopmaxxing** - The anti-pattern of assuming that more iterations automatically solve a task. It fails on goals with no verifiable exit condition, so the loop never converges and spend runs away. The multi-step descendant of token-maxxing. See [Loop Engineering](07-agentic-systems/12-loop-engineering.md).
 

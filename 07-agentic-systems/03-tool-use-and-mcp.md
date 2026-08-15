@@ -239,7 +239,7 @@ The roadmap items this chapter tracked through May 2026 have largely shipped. St
 
 ## Agent Plugins
 
-MCP standardizes how an agent reaches a tool. **Agent Plugins**, which reached 1.0.0 on August 6, 2026, standardizes how you *ship* a bundle of capability to an agent. It is a vendor-neutral packaging format governed by a technical steering committee spanning five member organizations, and GitHub made it generally available across VS Code, Copilot CLI, the Copilot SDK, and the Copilot app on August 12.
+MCP standardizes how an agent reaches a tool. **Agent Plugins**, which reached 1.0.0 on August 6, 2026, standardizes how you *ship* a bundle of capability to an agent. It is a vendor-neutral packaging format governed by a technical steering committee whose launch maintainers were Amazon, Cursor, Microsoft, OpenAI, and Vercel, with Google joining on launch day, and GitHub made it generally available across VS Code, Copilot CLI, the Copilot SDK, and the Copilot app on August 12.
 
 A plugin is a directory:
 
@@ -272,7 +272,7 @@ flowchart TD
 |-------|--------------|------|------------|
 | **Agent Skills** (`SKILL.md`) | Procedures and domain knowledge the agent applies | A folder with frontmatter plus optional scripts and assets | agentskills.io |
 | **MCP** | Access to tools, data, and resources | A server speaking JSON-RPC over stdio or Streamable HTTP | Linux Foundation, Agentic AI Foundation |
-| **Agent Plugins** | Distribution and installation of the two above | A directory with `plugin.json` | Agent Plugins TSC (5 member orgs) |
+| **Agent Plugins** | Distribution and installation of the two above | A directory with `plugin.json` | Agent Plugins TSC |
 | **A2A** | Delegation between agents across vendor or org boundaries | An agent endpoint with a signed Agent Card | Linux Foundation |
 
 The practical consequence for platform teams: enterprise administration now has one control point. GitHub reuses the existing `managed-settings.json` so plugin installation, marketplace access, and MCP server allowlists are all managed through the same file. If you are standing up an internal agent platform, the plugin is the unit you review, sign, and distribute, not the individual server.
@@ -383,9 +383,9 @@ sequenceDiagram
 
 The Support agent never sees the ledger. The Refund agent owns ledger access through its own MCP server and enforces a different policy. The A2A task is asynchronous: the Support agent can yield to the user with a hold message while the refund processes and reattach when the artifact arrives.
 
-### MCP 2026 Roadmap Highlights
+### MCP 2026 Roadmap Highlights: Both Shipped
 
-The MCP roadmap for the remainder of 2026 concentrates on two areas. **Transport scalability** targets multi-instance and load-balanced deployments: Streamable HTTP gains session resumption and sticky-session hints so an MCP server can run as a horizontally scaled Kubernetes Deployment without breaking long-lived tool sessions. **Enterprise-managed auth** formalizes the OAuth Resource Server posture: MCP servers are now classified as Resource Servers under RFC 8707, which means tokens are audience-bound to a specific server URI and cannot be replayed across servers.
+The two roadmap items this section tracked in mid-2026, transport scalability and enterprise-managed auth, have both landed. Transport scalability arrived not as session resumption but as the opposite design: the 2026-07-28 revision removed sessions from the protocol core entirely (see [the stateless rewrite](#mcp-2026-07-28)). Enterprise-managed auth shipped as the Enterprise-Managed Authorization extension in June 2026. The RFC 8707 posture still holds and is now hardened further: MCP servers are OAuth Resource Servers, tokens are audience-bound to a specific server URI and cannot be replayed across servers.
 
 ### MCP Production Hardening (post-May-2026)
 

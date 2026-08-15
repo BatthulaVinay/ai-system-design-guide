@@ -61,11 +61,11 @@ mindmap
 - [Ensemble Methods Questions](#ensemble-methods-questions) (Q40-Q49)
 - [System Design Scenarios](#system-design-scenarios) (5 deep-dive walkthroughs)
 - [Advanced Questions (December 2025)](#advanced-questions-december-2025) (Q50-Q65)
-- [Advanced Questions - March 2026](#advanced-questions--march-2026) (Q66-Q80)
-- [Advanced Questions - May 2026](#advanced-questions--may-2026) (Q81-Q110)
-- [Advanced Questions - June 2026](#advanced-questions--june-2026) (Q111-Q116)
-- [Advanced Questions - July 2026](#advanced-questions--july-2026) (Q117-Q122)
-- [Advanced Questions - August 2026](#advanced-questions--august-2026) (Q123-Q128) ⭐ *NEW*
+- [Advanced Questions - March 2026](#advanced-questions---march-2026) (Q66-Q80)
+- [Advanced Questions - May 2026](#advanced-questions---may-2026) (Q81-Q110)
+- [Advanced Questions - June 2026](#advanced-questions---june-2026) (Q111-Q116)
+- [Advanced Questions - July 2026](#advanced-questions---july-2026) (Q117-Q122)
+- [Advanced Questions - August 2026](#advanced-questions---august-2026) (Q123-Q128) ⭐ *NEW*
 
 ---
 
@@ -5323,13 +5323,13 @@ The subtle part is what changed. In the stateful era the session carried identit
 
 **Strong answer:**
 
-"Two things landed on August 2, 2026, and they are not the same obligation. Under EU AI Act Article 50, providers of systems that generate synthetic audio, image, video, or text must mark outputs in a machine-readable format detectable as artificially generated, and systems that interact directly with people must disclose that fact unless it is obvious. Penalties reach 15 million euros or 3% of worldwide turnover, whichever is higher. Separately, the Commission gained the power to fine general-purpose model providers under Article 101 on the same date. California's law, operative the same day, is more prescriptive: covered providers above a million monthly users must embed a latent disclosure carrying the provider name, system name and version, creation timestamp, and a unique identifier, and must offer a free public detection tool.
+"Two things landed on August 2, 2026, and they are not the same obligation. Under EU AI Act Article 50, providers of systems that generate synthetic audio, image, video, or text must mark outputs in a machine-readable format detectable as artificially generated, and systems that interact directly with people must disclose that fact unless it is obvious. Penalties reach 15 million euros or 3% of worldwide turnover, whichever is higher. One timing detail worth knowing: systems already on the market before August 2 have until December 2, 2026 to meet the marking duty, while interaction disclosure applied immediately. Separately, the Commission gained the power to fine general-purpose model providers under Article 101 on the same date. California's law, operative the same day, is more prescriptive: covered providers above a million monthly users must embed a latent disclosure carrying the provider name, system name and version, creation timestamp, and a unique identifier, and must offer a free public detection tool.
 
 **What I build:**
 
 1. **A provenance service, not a per-surface hack.** One component sits at the output boundary of every generation path and applies marking before content leaves the system. Building it per feature guarantees a gap.
 2. **Two layers, because they fail differently.** Content Credentials style signed metadata carries the rich disclosure fields California requires and survives well-behaved pipelines; a watermark carries a durable signal that survives re-encoding and metadata stripping. For text, watermarking approaches are now shipping in production at frontier labs, which makes text marking a live requirement rather than a research topic.
-3. **Design for the superset.** The California field list is stricter than the EU's machine-readability requirement, so I implement California's fields and satisfy both, rather than maintaining two schemas.
+3. **Design for the union, not a superset.** Neither regime contains the other. California is more prescriptive about what a latent disclosure carries, so its four fields become my metadata schema for image, video, and audio. But California's latent-disclosure duty excludes AI-generated text, and EU Article 50(2) requires text marking, so text marking and the AI-interaction disclosure are EU-driven additions on top. Implementing only California's list leaves an uncovered EU gap.
 4. **Detection is a product surface.** California requires a free public detection tool, which means the verification path needs an SLO, abuse protection, and a public endpoint. Teams routinely miss that this is a shipped feature, not a compliance document.
 5. **Interaction disclosure at the UI layer.** The 'you are talking to an AI' notice needs to be present, recorded, and testable, with the 'obvious to a reasonably informed person' carve-out documented per surface rather than assumed.
 6. **Evidence, retained.** Log what was marked, with what version of the marker, under what policy. Enforcement asks for records, and reconstructing them later is not possible.

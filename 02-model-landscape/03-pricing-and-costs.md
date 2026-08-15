@@ -72,7 +72,7 @@ Committed (1-year): $2.00 / 1M input tokens (20% savings)
 | **GPT-5.6 Sol** ⭐ NEW | $5.00 | $30.00 | GA July 9, 2026. Flagship of the three-tier GPT-5.6 line. 1M context, 128K max output. |
 | **GPT-5.6 Terra** ⭐ NEW | $2.00 | $12.00 | Cut 20% on July 30, 2026 from $2.50 / $15. GPT-5.5-class quality at roughly half the price; the general production default. |
 | **GPT-5.6 Luna** ⭐ NEW | $0.20 | $1.20 | Cut 80% on July 30, 2026 from $1 / $6. Priced against open-weight competition; the volume tier for classification, extraction, and routing. |
-| **GPT-5.6-Cyber** ⭐ NEW | $12.50 | $75.00 | August 10, 2026. Cached input $1.25. 400K context. Daybreak Red tier only: identity verification, legal attestations, approved use cases, Responses API only. Hardware security keys mandatory from September 1, 2026. |
+| **GPT-5.6-Cyber** ⭐ NEW | $12.50 | $75.00 | August 10, 2026. Cached input $1.25. 400K context. Daybreak Red tier only: identity verification, legal attestations, approved use cases, Responses API only. Hardware security keys mandatory on individual accounts from September 1, 2026. |
 | **GPT-5.5** | $5.00 | $30.00 | Released April 23, 2026. 1M context. New class of multimodal flagship. |
 | **GPT-5.5 Instant** ⭐ NEW | check latest | check latest | Default in ChatGPT and `chat-latest` since May 5, 2026. 52.5% fewer hallucinations on high-stakes prompts. |
 | **GPT-Realtime-2** ⭐ NEW | $32.00 (audio) | $64.00 (audio) | Released May 7, 2026. GPT-5-class realtime voice. |
@@ -94,7 +94,7 @@ Committed (1-year): $2.00 / 1M input tokens (20% savings)
 | **Claude Opus 4.8** | $5.00 | $25.00 | 1M | Released May 28, 2026 on API, Bedrock, Vertex AI. Dynamic Workflows research preview with parallel subagents. Optional fast mode at $10 / $50 per 1M (about 2.5x faster, 3x cheaper than the Opus 4.7 fast mode). SWE-bench Verified 88.6%; SWE-Bench Pro 69.2%; OSWorld-Verified 82.3%. |
 | **Claude Opus 4.7** | $5.00 | $25.00 | 1M | Released April 16, 2026 on API, Bedrock, Vertex, Microsoft Foundry. Higher-resolution vision, improved SWE. Fast mode is no longer offered on this model: a fast-speed request returns an error. |
 | **Claude Opus 4.6** | $5.00 | $25.00 | 1M | 128K max output; adaptive thinking at standard rates. |
-| **Claude Sonnet 4.6** | $3.00 | $15.00 | 1M | Covers most Opus-level tasks at lower cost. **Still no Sonnet 4.8 as of June 10, 2026.** |
+| **Claude Sonnet 4.6** | $3.00 | $15.00 | 1M | Superseded by Claude Sonnet 5 (June 30, 2026), which is both newer and cheaper at $2/$10. |
 | **Claude Haiku 4.5** | $1.00 | $5.00 | 200K | Fastest Anthropic model; cache hit input $0.10 / 1M. |
 | **Claude Mythos Preview** | n/a | n/a | - | Restricted research preview (~11 Glasswing partners); succeeded by Claude Mythos 5 on June 9, 2026. |
 
