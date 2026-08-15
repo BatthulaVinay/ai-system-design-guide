@@ -44,6 +44,12 @@ Query → Embed → Vector Search → Rerank → Top-K → Generate
 | **Multi-Agent Debate** | Verification | High |
 | **Human-in-the-Loop** | High-stakes actions | Medium |
 | **Swarm / Handoff** | Specialised sub-agents | High |
+| **Advisor / Executor** | Cheap model runs the loop, strong model consulted at decision points | Medium |
+| **Orchestrator + isolated subagents** | Parallel work without context contention | High |
+
+**Advisor / executor**, added in 2026, is the cost-quality lever worth knowing: an inexpensive executor drives the agent loop and calls a stronger advisor model at decision points, passing the transcript and receiving a plan or correction. Published measurements put a low-effort strong model plus a frontier advisor ahead of the same model raising its own effort level, at lower cost per task. Consult rate is the metric to watch: if the executor consults on nearly every step you have bought an expensive model with extra latency.
+
+**Orchestrator plus isolated subagents** is where the single-versus-multi-agent argument landed. Subagents get their own context and return summaries; there is no peer-to-peer channel and no shared mutable state. Vendor platforms enforce the limits that make it work in practice, typically one level of delegation and a cap on roster size, which is a good default even when your framework does not enforce it.
 
 ```
 ┌─────────────────────────────────────────┐
