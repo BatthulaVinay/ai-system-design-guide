@@ -64,7 +64,7 @@ A practical, continuously updated guide to AI system design, RAG architectures, 
 | **Engineer the data layer** | [Data Engineering for AI](06-retrieval-systems/15-data-engineering-for-ai.md) (ingestion, dedup, PII, decontamination) |
 | **Find the best courses to learn AI** | [Recommended Courses & Learning Paths](COURSES.md) |
 | **Transition from my current role to AI** | [Role Transition Guide](TRANSITION_GUIDE.md) |
-| **Understand the 2026 AI job market** | [Job Market Trends - June 2026](00-interview-prep/06-job-market-trends-2026.md) |
+| **Understand the 2026 AI job market** | [Job Market Trends](00-interview-prep/06-job-market-trends-2026.md) |
 | **Get a quick answer to a common question** | [FAQ](00-interview-prep/07-faq.md) (RAG, agents, models, eval, inference, memory, security) |
 | **Look up a term** | [Glossary](GLOSSARY.md) (every term defined) |
 
@@ -93,12 +93,12 @@ flowchart TD
 
 | This Guide | Printed Books |
 |------------|---------------|
-| July 2026 models (Claude Opus 5, Claude Sonnet 5, Claude Fable 5, GPT-5.6, Gemini 3.1 Pro, Gemini 3.6 Flash, DeepSeek V4 Pro, Kimi K3, Inkling, GLM-5.2, Qwen 3.7, Llama 4) | Stuck on GPT-4 |
+| August 2026 models (Claude Opus 5, Sonnet 5, Fable 5, GPT-5.6 Sol/Terra/Luna, GPT-5.6-Cyber, Gemini 3.7 Flash, Grok 4.6, DeepSeek V4, Kimi K3, Qwen3.8, GLM-5.3, Muse Glimmer, Inkling) | Stuck on GPT-4 |
 | MCP 2.0, A2A v1.0, OpenClaw, Computer Use, Agentic RAG, ColBERT, latent reasoning, MoE serving | Does not exist |
-| Real pricing with July 2026 verification dates | Already wrong |
+| Real pricing with August 2026 verification dates | Already wrong |
 | Staff-level interview Q&A (128 questions through August 2026) + Job Market Trends | Generic questions |
 
-**Quick model picker (July 2026):** Claude Fable 5 for the capability ceiling ($10/$50 per 1M), Claude Opus 5 for long-horizon agentic coding at $5/$25, Claude Sonnet 5 as the production default ($2/$10 intro through August 31), GPT-5.6 Terra for general production ($2/$12) with Luna at $0.20/$1.20 for volume tiers, Gemini 3.1 Pro for multimodal, DeepSeek V4 Flash ($0.14/$0.28 per 1M) for cheap frontier-class output, Kimi K3 or Inkling for open weights. Full breakdown in [Model Taxonomy](02-model-landscape/01-model-taxonomy.md).
+**Quick model picker (August 2026):** Claude Fable 5 for the capability ceiling ($10/$50 per 1M), Claude Opus 5 for long-horizon agentic coding at $5/$25, Claude Sonnet 5 as the production default ($2/$10, now permanent), GPT-5.6 Terra for general production ($2/$12) with Luna at $0.20/$1.20 for volume tiers, Gemini 3.7 Flash at a half-price $0.75/$3.75 through year-end, Kimi K3 or Muse Glimmer for open weights. Note that DeepSeek V4 stopped being the automatic cheap answer on August 16, when prices rose 3x to 12x and moved to peak and off-peak billing. Full breakdown in [Model Taxonomy](02-model-landscape/01-model-taxonomy.md).
 
 ---
 

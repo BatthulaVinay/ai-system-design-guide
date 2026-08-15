@@ -62,7 +62,7 @@ This chapter provides a comprehensive guide to the model landscape as of **Augus
 | Context Window | 1M tokens (default and max; 128K max output) |
 | Input / Output Cost | $5.00 / $25.00 per 1M (unchanged from Opus 4.8) |
 | Fast mode | $10.00 / $50.00 per 1M, about 2.5x faster |
-| Benchmarks | Frontier-Bench v0.1 (Terminal-Bench successor): 43.3% at max effort vs GPT-5.6 Sol's 34.4%, Fable 5's 33.7%, and Opus 4.8's 18.7%. Within 0.5% of Fable 5 on CursorBench 3.2 at about half the cost per task; roughly 3x the next-best model on ARC-AGI 3. Vendor-reported. |
+| Benchmarks | Terminal-Bench 3.0, published August 7, 2026 and cited at launch under its former name Frontier-Bench v0.1: 43.3% at max effort vs GPT-5.6 Sol's 34.4%, Fable 5's 33.7%, and Opus 4.8's 18.7%. Within 0.5% of Fable 5 on CursorBench 3.2 at about half the cost per task; roughly 3x the next-best model on ARC-AGI 3. Vendor-reported. |
 | Released | July 24, 2026 (Claude API, Claude Code, Claude Cowork; new default on Claude Max) |
 
 **What it is:** The Opus line's generational successor at unchanged pricing, aimed at long-horizon agentic coding and computer use. Beta features include mid-conversation tool changes and automatic fallback routing. The dual-price Fast mode continues the pattern Opus 4.8 introduced: one model, two latency tiers.
